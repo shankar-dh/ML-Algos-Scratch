@@ -15,7 +15,8 @@ class LinearRegression():
         return np.mean((y_actual - y_pred)**2)
             
     def fit(self, X,y):
-        self.weights = np.zeros((X.shape[1], 1))
+        n_samples, n_features = X.shape
+        self.weights = np.zeros((n_features, 1))
         self.bias = 0
         
         for i in range(self.n_iterations):
@@ -27,7 +28,7 @@ class LinearRegression():
                 print(f"Loss at iteration {i}:{loss}")
 
             # update weights and biases
-            dw = (2/X.shape[0]) * (np.dot(X.T, (y_pred- y)))
+            dw = (2/n_samples) * (np.dot(X.T, (y_pred- y)))
             db = (2 * np.mean(y_pred - y))
             
             if self.regularization == 'l1':
